@@ -18,7 +18,7 @@ The goals / steps of this project are the following:
 
 [image1]: ./write_up_image/1.png "1"
 [image2]: ./write_up_image/2.png "2"
-[image3]: ./write_up_image/3.png "3"
+[image3]: ./write_up_image/3.jpg "3"
 
 
 ## Rubric Points
