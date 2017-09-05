@@ -84,9 +84,9 @@ In order to gauge how well the model was working, I split my image and steering 
 
 To combat the overfitting, I modified the model so that apply dropout in model. concretely, first I apply dropout layer in each convolutional layer with dropout value = 0.4, and result is not just as my wishes, then I tune dropout value = 0.35, 0.3, 0.2, all this can not improve result. I guess maybe it is because convolutional layer aim to recongnize feature of images, so that it perform better when we let all information go through them. So that I apply dropout in fully connected layer, and tune dropout value = 0.3, then I get a better model.
 
-Then I use flip and use images and angles from three cameras, so that we can get more data to train, the easiest and most useful way to combat the overfitting. More data is aways better.
+Then I use flip and use images and angles from three cameras, so that we can get more data to train, the easiest and most useful way to combat the overfitting. More data is always better.
 
-Besides I tune the epoch number to 10, because I find when I use 5 epoch, car aways go aside and when it turns around it leaves the road likely. And when I do this adjust, our model performs better, even it will cost much longer time.
+Besides I tune the epoch number to 10, because I find when I use 5 epoch, car always go aside and when it turns around it leaves the road likely. And when I do this adjust, our model performs better, even it will cost much longer time.
 
 And I try to apply grayscale to image, still it didn't achieve better performence. So I give it up.
 
@@ -100,42 +100,43 @@ The final step was to run the simulator to see how well the car was driving arou
   
  ![alt text][image1]
 
-To improve the driving behavior in these cases, I tune the epoch number, dropout value and angle correction. But those methods bring little effect. Then I find tune the speed value in drive.py is a good idea. After all, slower is aways safer, the same as reality.
+To improve the driving behavior in these cases, I tune the epoch number, dropout value and angle correction. But those methods bring little effect. Then I find tune the speed value in drive.py is a good idea. After all, slower is always safer, the same as reality.
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
 ####2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
+The final model architecture (model.py lines 88-105) consisted of a convolution neural network with the following layers and layer sizes. 
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
-
-![alt text][image1]
+| Layer         		|     Description	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| Input         		| 160x320x3 RGB image   							| 
+| Cropping2D         		| Crop 160x320x3 image to 160x250x3   							| 
+| Lambda         		|    		normalize images					| 
+| Convolution 5x5     	| 2x2 stride, valid padding, depth = 24 	|
+| RELU					|												|
+| Convolution 5x5     	| 2x2 stride, valid padding, depth = 36 	|
+| RELU					|			
+| Convolution 5x5     	| 2x2 stride, valid padding, depth = 48 	|
+| RELU					|	
+| Convolution 3x3     	| 1x1 stride, valid padding, depth = 64 	|
+| RELU					|	
+| Convolution 3x3     	| 1x1 stride, valid padding, depth = 64 	|
+| RELU					|	
+| Flatten	      	| 	|
+| Fully connected		| hidden1 = 1164, hidden2 = 100, hidden3 = 50, hidden4 = 10, Output = 1, dropout = 0.3  |       					
 
 ####3. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
+To capture good driving behavior, I first recorded two laps on track one using center lane driving. But I find when I use data created by myself, our model always perform not as my wish. So I think it is because my driving skill is terrible. So that I download data from Udacity. 
 
-![alt text][image2]
+the image looks like this:
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+![alt text][image1]
 
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
-
-Then I repeated this process on track two in order to get more data points.
-
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
-
-![alt text][image6]
-![alt text][image7]
-
-Etc ....
-
-After the collection process, I had X number of data points. I then preprocessed this data by ...
+After the collection process, I had about 8,000 number of data points per camera. I then preprocessed this data by flip them and use data from all three cameras to get more data. Actually I try to apply grayscale in them, but it didn;t work. And also I use "Cropping2D" function and "Lambda" function to crop image and normalize them in model.
 
 
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
+I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 10 as evidenced by test result. I used an adam optimizer so that manually training the learning rate wasn't necessary.
