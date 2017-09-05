@@ -16,13 +16,10 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[image1]: ./write_up_image/1.png "1"
+[image2]: ./write_up_image/2.png "2"
+[image3]: ./write_up_image/3.png "3"
+
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -98,7 +95,7 @@ The final step was to run the simulator to see how well the car was driving arou
   
   2) 
   
- ![alt text][image1]
+ ![alt text][image2]
 
 To improve the driving behavior in these cases, I tune the epoch number, dropout value and angle correction. But those methods bring little effect. Then I find tune the speed value in drive.py is a good idea. After all, slower is always safer, the same as reality.
 
@@ -132,7 +129,7 @@ To capture good driving behavior, I first recorded two laps on track one using c
 
 the image looks like this:
 
-![alt text][image1]
+![alt text][image3]
 
 After the collection process, I had about 8,000 number of data points per camera. I then preprocessed this data by flip them and use data from all three cameras to get more data. Actually I try to apply grayscale in them, but it didn;t work. And also I use "Cropping2D" function and "Lambda" function to crop image and normalize them in model.
 
